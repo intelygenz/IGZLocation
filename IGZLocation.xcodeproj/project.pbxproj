@@ -7,6 +7,13 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		8159B42A1E43378400D0D587 /* IGZLocationHandlers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8159B4291E43378400D0D587 /* IGZLocationHandlers.swift */; };
+		8159B42C1E4337A900D0D587 /* IGZLocationNotifications.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8159B42B1E4337A900D0D587 /* IGZLocationNotifications.swift */; };
+		8159B42E1E4337D100D0D587 /* IGZLocationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8159B42D1E4337D100D0D587 /* IGZLocationManager.swift */; };
+		8159B4301E4337F300D0D587 /* IGZLocationDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8159B42F1E4337F300D0D587 /* IGZLocationDelegate.swift */; };
+		8159B4321E43382300D0D587 /* IGZLocationError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8159B4311E43382300D0D587 /* IGZLocationError.swift */; };
+		8159B4341E43389A00D0D587 /* IGZLocationManagerDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8159B4331E43389A00D0D587 /* IGZLocationManagerDelegate.swift */; };
+		8159B4361E4339C600D0D587 /* IGZLocationManagerExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8159B4351E4339C600D0D587 /* IGZLocationManagerExtension.swift */; };
 		81925D201E40AA78001701F3 /* IGZLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 81925D161E40AA78001701F3 /* IGZLocation.framework */; };
 		81925D251E40AA78001701F3 /* IGZLocationTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81925D241E40AA78001701F3 /* IGZLocationTests.swift */; };
 		81925D271E40AA78001701F3 /* IGZLocation.h in Headers */ = {isa = PBXBuildFile; fileRef = 81925D191E40AA78001701F3 /* IGZLocation.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -24,6 +31,13 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		8159B4291E43378400D0D587 /* IGZLocationHandlers.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IGZLocationHandlers.swift; sourceTree = "<group>"; };
+		8159B42B1E4337A900D0D587 /* IGZLocationNotifications.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IGZLocationNotifications.swift; sourceTree = "<group>"; };
+		8159B42D1E4337D100D0D587 /* IGZLocationManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IGZLocationManager.swift; sourceTree = "<group>"; };
+		8159B42F1E4337F300D0D587 /* IGZLocationDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IGZLocationDelegate.swift; sourceTree = "<group>"; };
+		8159B4311E43382300D0D587 /* IGZLocationError.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IGZLocationError.swift; sourceTree = "<group>"; };
+		8159B4331E43389A00D0D587 /* IGZLocationManagerDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IGZLocationManagerDelegate.swift; sourceTree = "<group>"; };
+		8159B4351E4339C600D0D587 /* IGZLocationManagerExtension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IGZLocationManagerExtension.swift; sourceTree = "<group>"; };
 		81925D161E40AA78001701F3 /* IGZLocation.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = IGZLocation.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		81925D191E40AA78001701F3 /* IGZLocation.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = IGZLocation.h; sourceTree = "<group>"; };
 		81925D1A1E40AA78001701F3 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -76,6 +90,13 @@
 				81925D1A1E40AA78001701F3 /* Info.plist */,
 				81925D191E40AA78001701F3 /* IGZLocation.h */,
 				81925D301E40AB25001701F3 /* IGZLocation.swift */,
+				8159B42D1E4337D100D0D587 /* IGZLocationManager.swift */,
+				8159B4351E4339C600D0D587 /* IGZLocationManagerExtension.swift */,
+				8159B4331E43389A00D0D587 /* IGZLocationManagerDelegate.swift */,
+				8159B4291E43378400D0D587 /* IGZLocationHandlers.swift */,
+				8159B42B1E4337A900D0D587 /* IGZLocationNotifications.swift */,
+				8159B42F1E4337F300D0D587 /* IGZLocationDelegate.swift */,
+				8159B4311E43382300D0D587 /* IGZLocationError.swift */,
 			);
 			path = IGZLocation;
 			sourceTree = "<group>";
@@ -202,7 +223,14 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				8159B42C1E4337A900D0D587 /* IGZLocationNotifications.swift in Sources */,
+				8159B42E1E4337D100D0D587 /* IGZLocationManager.swift in Sources */,
+				8159B4321E43382300D0D587 /* IGZLocationError.swift in Sources */,
+				8159B4301E4337F300D0D587 /* IGZLocationDelegate.swift in Sources */,
+				8159B42A1E43378400D0D587 /* IGZLocationHandlers.swift in Sources */,
+				8159B4361E4339C600D0D587 /* IGZLocationManagerExtension.swift in Sources */,
 				81925D311E40AB25001701F3 /* IGZLocation.swift in Sources */,
+				8159B4341E43389A00D0D587 /* IGZLocationManagerDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -410,6 +438,7 @@
 				81925D2C1E40AA78001701F3 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		81925D2D1E40AA78001701F3 /* Build configuration list for PBXNativeTarget "IGZLocationTests" */ = {
 			isa = XCConfigurationList;
@@ -418,6 +447,7 @@
 				81925D2F1E40AA78001701F3 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
