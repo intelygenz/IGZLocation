@@ -85,13 +85,13 @@ extension IGZLocation: IGZLocationManager {
                 locationManager.allowsBackgroundLocationUpdates = newValue
             }
             else {
-                let error = NSError(domain: kCLErrorDomain, code: CLError.denied.rawValue, userInfo: nil)
-                let authorizationError = IGZLocationError(error)
+                let error = NSError(domain: kCLErrorDomain, code: CLError.denied.rawValue, userInfo: [NSLocalizedDescriptionKey: "The app's Info.plist must contain an UIBackgroundModes key with \"location\" value."])
+                let backgroundError = IGZLocationError(error)
                 for delegate in delegates {
-                    delegate.didFail?(authorizationError)
+                    delegate.didFail?(backgroundError)
                 }
                 for errorHandler in errorHandlers {
-                    errorHandler(authorizationError)
+                    errorHandler(backgroundError)
                 }
             }
         }
@@ -130,6 +130,10 @@ extension IGZLocation: IGZLocationManager {
     }
 
     public func authorize(_ status: CLAuthorizationStatus, _ handler: IGZAuthorizationHandler? = nil) -> Bool {
+        guard status != authorization else {
+            handler?(status)
+            return true
+        }
         authorizationTemporaryHandlers.append({ newStatus in handler?(newStatus) })
         switch status {
         case .authorizedAlways:
@@ -139,7 +143,7 @@ extension IGZLocation: IGZLocationManager {
             locationManager.requestWhenInUseAuthorization()
             return true
         default:
-            let error = NSError(domain: kCLErrorDomain, code: CLError.denied.rawValue, userInfo: nil)
+            let error = NSError(domain: kCLErrorDomain, code: CLError.denied.rawValue, userInfo: [NSLocalizedDescriptionKey: "This app has attempted to access location data without user's authorization."])
             let authorizationError = IGZLocationError(error)
             for delegate in delegates {
                 delegate.didFail?(authorizationError)
@@ -246,13 +250,13 @@ extension IGZLocation: IGZLocationManager {
 
     public func stopRegionUpdates(_ region: CLRegion? = nil) -> Bool {
         guard regions.count > 0 else {
-            let error = NSError(domain: kCLErrorDomain, code: CLError.regionMonitoringDenied.rawValue, userInfo: nil)
-            let authorizationError = IGZLocationError(error)
+            let error = NSError(domain: kCLErrorDomain, code: CLError.regionMonitoringDenied.rawValue, userInfo: [NSLocalizedDescriptionKey: "You don't have any monitored regions."])
+            let regionError = IGZLocationError(error)
             for delegate in delegates {
-                delegate.didFail?(authorizationError)
+                delegate.didFail?(regionError)
             }
             for errorHandler in errorHandlers {
-                errorHandler(authorizationError)
+                errorHandler(regionError)
             }
             return false
         }
@@ -274,13 +278,13 @@ extension IGZLocation: IGZLocationManager {
             requestedRegion = regions.first
         }
         guard let region = requestedRegion else {
-            let error = NSError(domain: kCLErrorDomain, code: CLError.regionMonitoringDenied.rawValue, userInfo: nil)
-            let authorizationError = IGZLocationError(error)
+            let error = NSError(domain: kCLErrorDomain, code: CLError.regionMonitoringDenied.rawValue, userInfo: [NSLocalizedDescriptionKey: "You don't have any monitored regions."])
+            let regionError = IGZLocationError(error)
             for delegate in delegates {
-                delegate.didFail?(authorizationError)
+                delegate.didFail?(regionError)
             }
             for errorHandler in errorHandlers {
-                errorHandler(authorizationError)
+                errorHandler(regionError)
             }
             return false
         }
@@ -324,14 +328,14 @@ extension IGZLocation: IGZLocationManager {
         guard authorized else {
             _ = authorize(authorization, { newStatus in
                 if self.authorized(newStatus) {
-                    self.visitTemporaryHandlers.append({ visit in handler?(visit) })
+                    self.visitTemporaryHandlers.append({ visit, visiting in handler?(visit, visiting) })
                     self.locationManager.startMonitoringVisits()
                 }
             })
             return
         }
 
-        visitTemporaryHandlers.append({ visit in handler?(visit) })
+        visitTemporaryHandlers.append({ visit, visiting in handler?(visit, visiting) })
         locationManager.startMonitoringVisits()
     }
 

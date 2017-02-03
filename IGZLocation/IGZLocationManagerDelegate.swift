@@ -191,15 +191,17 @@ extension IGZLocation: CLLocationManagerDelegate {
     }
 
     public func locationManager(_ manager: CLLocationManager, didVisit visit: CLVisit) {
-        notificationCenter.post(name: IGZLocationNotifications.didVisit, object: visit)
+        let date = Date()
+        let visiting = visit.arrivalDate < date && visit.departureDate > date
+        notificationCenter.post(name: IGZLocationNotifications.didVisit, object: visit, userInfo: [IGZLocationNotifications.userInfoKeys.visiting: visiting])
         for delegate in delegates {
-            delegate.didVisit!(visit)
+            delegate.didVisit!(visit, visiting)
         }
         for visitTemporaryHandler in visitTemporaryHandlers {
-            visitTemporaryHandler(visit)
+            visitTemporaryHandler(visit, visiting)
         }
         for visitHandler in visitHandlers {
-            visitHandler(visit)
+            visitHandler(visit, visiting)
         }
     }
     

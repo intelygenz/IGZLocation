@@ -14,6 +14,14 @@
 		8159B4321E43382300D0D587 /* IGZLocationError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8159B4311E43382300D0D587 /* IGZLocationError.swift */; };
 		8159B4341E43389A00D0D587 /* IGZLocationManagerDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8159B4331E43389A00D0D587 /* IGZLocationManagerDelegate.swift */; };
 		8159B4361E4339C600D0D587 /* IGZLocationManagerExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8159B4351E4339C600D0D587 /* IGZLocationManagerExtension.swift */; };
+		8159B43E1E447F3C00D0D587 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8159B43D1E447F3C00D0D587 /* AppDelegate.swift */; };
+		8159B4401E447F3D00D0D587 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8159B43F1E447F3C00D0D587 /* ViewController.swift */; };
+		8159B4431E447F3D00D0D587 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 8159B4411E447F3D00D0D587 /* Main.storyboard */; };
+		8159B4451E447F3D00D0D587 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 8159B4441E447F3D00D0D587 /* Assets.xcassets */; };
+		8159B4481E447F3D00D0D587 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 8159B4461E447F3D00D0D587 /* LaunchScreen.storyboard */; };
+		8159B4531E447F3D00D0D587 /* IGZLocationMapUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8159B4521E447F3D00D0D587 /* IGZLocationMapUITests.swift */; };
+		8159B45B1E447F7700D0D587 /* IGZLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 81925D161E40AA78001701F3 /* IGZLocation.framework */; };
+		8159B45C1E447F7700D0D587 /* IGZLocation.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 81925D161E40AA78001701F3 /* IGZLocation.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		81925D201E40AA78001701F3 /* IGZLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 81925D161E40AA78001701F3 /* IGZLocation.framework */; };
 		81925D251E40AA78001701F3 /* IGZLocationTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81925D241E40AA78001701F3 /* IGZLocationTests.swift */; };
 		81925D271E40AA78001701F3 /* IGZLocation.h in Headers */ = {isa = PBXBuildFile; fileRef = 81925D191E40AA78001701F3 /* IGZLocation.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -21,6 +29,20 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
+		8159B44F1E447F3D00D0D587 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 81925D0D1E40AA78001701F3 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 8159B43A1E447F3C00D0D587;
+			remoteInfo = IGZLocationMap;
+		};
+		8159B45D1E447F7700D0D587 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 81925D0D1E40AA78001701F3 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 81925D151E40AA78001701F3;
+			remoteInfo = IGZLocation;
+		};
 		81925D211E40AA78001701F3 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 81925D0D1E40AA78001701F3 /* Project object */;
@@ -30,6 +52,20 @@
 		};
 /* End PBXContainerItemProxy section */
 
+/* Begin PBXCopyFilesBuildPhase section */
+		8159B45F1E447F7700D0D587 /* Embed Frameworks */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 10;
+			files = (
+				8159B45C1E447F7700D0D587 /* IGZLocation.framework in Embed Frameworks */,
+			);
+			name = "Embed Frameworks";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
+
 /* Begin PBXFileReference section */
 		8159B4291E43378400D0D587 /* IGZLocationHandlers.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IGZLocationHandlers.swift; sourceTree = "<group>"; };
 		8159B42B1E4337A900D0D587 /* IGZLocationNotifications.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IGZLocationNotifications.swift; sourceTree = "<group>"; };
@@ -38,6 +74,16 @@
 		8159B4311E43382300D0D587 /* IGZLocationError.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IGZLocationError.swift; sourceTree = "<group>"; };
 		8159B4331E43389A00D0D587 /* IGZLocationManagerDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IGZLocationManagerDelegate.swift; sourceTree = "<group>"; };
 		8159B4351E4339C600D0D587 /* IGZLocationManagerExtension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IGZLocationManagerExtension.swift; sourceTree = "<group>"; };
+		8159B43B1E447F3C00D0D587 /* IGZLocationMap.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = IGZLocationMap.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		8159B43D1E447F3C00D0D587 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
+		8159B43F1E447F3C00D0D587 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
+		8159B4421E447F3D00D0D587 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
+		8159B4441E447F3D00D0D587 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		8159B4471E447F3D00D0D587 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
+		8159B4491E447F3D00D0D587 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		8159B44E1E447F3D00D0D587 /* IGZLocationMapUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = IGZLocationMapUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		8159B4521E447F3D00D0D587 /* IGZLocationMapUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IGZLocationMapUITests.swift; sourceTree = "<group>"; };
+		8159B4541E447F3D00D0D587 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		81925D161E40AA78001701F3 /* IGZLocation.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = IGZLocation.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		81925D191E40AA78001701F3 /* IGZLocation.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = IGZLocation.h; sourceTree = "<group>"; };
 		81925D1A1E40AA78001701F3 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -48,6 +94,21 @@
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
+		8159B4381E447F3C00D0D587 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				8159B45B1E447F7700D0D587 /* IGZLocation.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		8159B44B1E447F3D00D0D587 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		81925D121E40AA78001701F3 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
@@ -66,11 +127,35 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		8159B43C1E447F3C00D0D587 /* IGZLocationMap */ = {
+			isa = PBXGroup;
+			children = (
+				8159B43D1E447F3C00D0D587 /* AppDelegate.swift */,
+				8159B43F1E447F3C00D0D587 /* ViewController.swift */,
+				8159B4411E447F3D00D0D587 /* Main.storyboard */,
+				8159B4441E447F3D00D0D587 /* Assets.xcassets */,
+				8159B4461E447F3D00D0D587 /* LaunchScreen.storyboard */,
+				8159B4491E447F3D00D0D587 /* Info.plist */,
+			);
+			path = IGZLocationMap;
+			sourceTree = "<group>";
+		};
+		8159B4511E447F3D00D0D587 /* IGZLocationMapUITests */ = {
+			isa = PBXGroup;
+			children = (
+				8159B4521E447F3D00D0D587 /* IGZLocationMapUITests.swift */,
+				8159B4541E447F3D00D0D587 /* Info.plist */,
+			);
+			path = IGZLocationMapUITests;
+			sourceTree = "<group>";
+		};
 		81925D0C1E40AA78001701F3 = {
 			isa = PBXGroup;
 			children = (
 				81925D181E40AA78001701F3 /* IGZLocation */,
 				81925D231E40AA78001701F3 /* IGZLocationTests */,
+				8159B43C1E447F3C00D0D587 /* IGZLocationMap */,
+				8159B4511E447F3D00D0D587 /* IGZLocationMapUITests */,
 				81925D171E40AA78001701F3 /* Products */,
 			);
 			sourceTree = "<group>";
@@ -80,6 +165,8 @@
 			children = (
 				81925D161E40AA78001701F3 /* IGZLocation.framework */,
 				81925D1F1E40AA78001701F3 /* IGZLocationTests.xctest */,
+				8159B43B1E447F3C00D0D587 /* IGZLocationMap.app */,
+				8159B44E1E447F3D00D0D587 /* IGZLocationMapUITests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -124,6 +211,43 @@
 /* End PBXHeadersBuildPhase section */
 
 /* Begin PBXNativeTarget section */
+		8159B43A1E447F3C00D0D587 /* IGZLocationMap */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 8159B4591E447F3D00D0D587 /* Build configuration list for PBXNativeTarget "IGZLocationMap" */;
+			buildPhases = (
+				8159B4371E447F3C00D0D587 /* Sources */,
+				8159B4381E447F3C00D0D587 /* Frameworks */,
+				8159B4391E447F3C00D0D587 /* Resources */,
+				8159B45F1E447F7700D0D587 /* Embed Frameworks */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				8159B45E1E447F7700D0D587 /* PBXTargetDependency */,
+			);
+			name = IGZLocationMap;
+			productName = IGZLocationMap;
+			productReference = 8159B43B1E447F3C00D0D587 /* IGZLocationMap.app */;
+			productType = "com.apple.product-type.application";
+		};
+		8159B44D1E447F3D00D0D587 /* IGZLocationMapUITests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 8159B45A1E447F3D00D0D587 /* Build configuration list for PBXNativeTarget "IGZLocationMapUITests" */;
+			buildPhases = (
+				8159B44A1E447F3D00D0D587 /* Sources */,
+				8159B44B1E447F3D00D0D587 /* Frameworks */,
+				8159B44C1E447F3D00D0D587 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				8159B4501E447F3D00D0D587 /* PBXTargetDependency */,
+			);
+			name = IGZLocationMapUITests;
+			productName = IGZLocationMapUITests;
+			productReference = 8159B44E1E447F3D00D0D587 /* IGZLocationMapUITests.xctest */;
+			productType = "com.apple.product-type.bundle.ui-testing";
+		};
 		81925D151E40AA78001701F3 /* IGZLocation */ = {
 			isa = PBXNativeTarget;
 			buildConfigurationList = 81925D2A1E40AA78001701F3 /* Build configuration list for PBXNativeTarget "IGZLocation" */;
@@ -170,6 +294,17 @@
 				LastUpgradeCheck = 0820;
 				ORGANIZATIONNAME = Intelygenz;
 				TargetAttributes = {
+					8159B43A1E447F3C00D0D587 = {
+						CreatedOnToolsVersion = 8.2.1;
+						DevelopmentTeam = 3VW789WSMP;
+						ProvisioningStyle = Automatic;
+					};
+					8159B44D1E447F3D00D0D587 = {
+						CreatedOnToolsVersion = 8.2.1;
+						DevelopmentTeam = 3VW789WSMP;
+						ProvisioningStyle = Automatic;
+						TestTargetID = 8159B43A1E447F3C00D0D587;
+					};
 					81925D151E40AA78001701F3 = {
 						CreatedOnToolsVersion = 8.2.1;
 						DevelopmentTeam = 3VW789WSMP;
@@ -189,6 +324,7 @@
 			hasScannedForEncodings = 0;
 			knownRegions = (
 				en,
+				Base,
 			);
 			mainGroup = 81925D0C1E40AA78001701F3;
 			productRefGroup = 81925D171E40AA78001701F3 /* Products */;
@@ -197,11 +333,30 @@
 			targets = (
 				81925D151E40AA78001701F3 /* IGZLocation */,
 				81925D1E1E40AA78001701F3 /* IGZLocationTests */,
+				8159B43A1E447F3C00D0D587 /* IGZLocationMap */,
+				8159B44D1E447F3D00D0D587 /* IGZLocationMapUITests */,
 			);
 		};
 /* End PBXProject section */
 
 /* Begin PBXResourcesBuildPhase section */
+		8159B4391E447F3C00D0D587 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				8159B4481E447F3D00D0D587 /* LaunchScreen.storyboard in Resources */,
+				8159B4451E447F3D00D0D587 /* Assets.xcassets in Resources */,
+				8159B4431E447F3D00D0D587 /* Main.storyboard in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		8159B44C1E447F3D00D0D587 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		81925D141E40AA78001701F3 /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -219,6 +374,23 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
+		8159B4371E447F3C00D0D587 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				8159B4401E447F3D00D0D587 /* ViewController.swift in Sources */,
+				8159B43E1E447F3C00D0D587 /* AppDelegate.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		8159B44A1E447F3D00D0D587 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				8159B4531E447F3D00D0D587 /* IGZLocationMapUITests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		81925D111E40AA78001701F3 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -245,6 +417,16 @@
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
+		8159B4501E447F3D00D0D587 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 8159B43A1E447F3C00D0D587 /* IGZLocationMap */;
+			targetProxy = 8159B44F1E447F3D00D0D587 /* PBXContainerItemProxy */;
+		};
+		8159B45E1E447F7700D0D587 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 81925D151E40AA78001701F3 /* IGZLocation */;
+			targetProxy = 8159B45D1E447F7700D0D587 /* PBXContainerItemProxy */;
+		};
 		81925D221E40AA78001701F3 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			target = 81925D151E40AA78001701F3 /* IGZLocation */;
@@ -252,7 +434,82 @@
 		};
 /* End PBXTargetDependency section */
 
+/* Begin PBXVariantGroup section */
+		8159B4411E447F3D00D0D587 /* Main.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				8159B4421E447F3D00D0D587 /* Base */,
+			);
+			name = Main.storyboard;
+			sourceTree = "<group>";
+		};
+		8159B4461E447F3D00D0D587 /* LaunchScreen.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				8159B4471E447F3D00D0D587 /* Base */,
+			);
+			name = LaunchScreen.storyboard;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
+
 /* Begin XCBuildConfiguration section */
+		8159B4551E447F3D00D0D587 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				DEVELOPMENT_TEAM = 3VW789WSMP;
+				INFOPLIST_FILE = IGZLocationMap/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = com.intelygenz.IGZLocationMap;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 3.0;
+			};
+			name = Debug;
+		};
+		8159B4561E447F3D00D0D587 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				DEVELOPMENT_TEAM = 3VW789WSMP;
+				INFOPLIST_FILE = IGZLocationMap/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = com.intelygenz.IGZLocationMap;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 3.0;
+			};
+			name = Release;
+		};
+		8159B4571E447F3D00D0D587 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				DEVELOPMENT_TEAM = 3VW789WSMP;
+				INFOPLIST_FILE = IGZLocationMapUITests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = com.intelygenz.IGZLocationMapUITests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 3.0;
+				TEST_TARGET_NAME = IGZLocationMap;
+			};
+			name = Debug;
+		};
+		8159B4581E447F3D00D0D587 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				DEVELOPMENT_TEAM = 3VW789WSMP;
+				INFOPLIST_FILE = IGZLocationMapUITests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = com.intelygenz.IGZLocationMapUITests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 3.0;
+				TEST_TARGET_NAME = IGZLocationMap;
+			};
+			name = Release;
+		};
 		81925D281E40AA78001701F3 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -422,6 +679,22 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
+		8159B4591E447F3D00D0D587 /* Build configuration list for PBXNativeTarget "IGZLocationMap" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				8159B4551E447F3D00D0D587 /* Debug */,
+				8159B4561E447F3D00D0D587 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+		};
+		8159B45A1E447F3D00D0D587 /* Build configuration list for PBXNativeTarget "IGZLocationMapUITests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				8159B4571E447F3D00D0D587 /* Debug */,
+				8159B4581E447F3D00D0D587 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+		};
 		81925D101E40AA78001701F3 /* Build configuration list for PBXProject "IGZLocation" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (

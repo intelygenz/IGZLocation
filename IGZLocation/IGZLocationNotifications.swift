@@ -19,5 +19,6 @@ struct IGZLocationNotifications {
 
     struct userInfoKeys {
         static let regionState = "IGZLocationRegionStateNotificationUserInfoKey"
+        static let visiting = "IGZLocationVisitingNotificationUserInfoKey"
     }
 }

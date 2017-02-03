@@ -14,4 +14,4 @@ public typealias IGZErrorHandler = (_ error: IGZLocationError) -> Void
 public typealias IGZHeadingHandler = (_ heading: CLHeading) -> Void
 public typealias IGZRegionHandler = (_ region: CLRegion, _ state: CLRegionState) -> Void
 public typealias IGZAuthorizationHandler = (_ status: CLAuthorizationStatus) -> Void
-public typealias IGZVisitHandler = (_ visit: CLVisit) -> Void
+public typealias IGZVisitHandler = (_ visit: CLVisit, _ visiting: Bool) -> Void

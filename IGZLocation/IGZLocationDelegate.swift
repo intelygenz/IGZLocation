@@ -16,6 +16,6 @@ import CoreLocation
     @objc optional func didUpdateRegion(_ region: CLRegion, _ state: CLRegionState)
     @objc optional func didFail(_ error: IGZLocationError)
     @objc optional func didChangeAuthorization(_ status: CLAuthorizationStatus)
-    @objc optional func didVisit(_ visit: CLVisit)
+    @objc optional func didVisit(_ visit: CLVisit, _ visiting: Bool)
 
 }

@@ -33,5 +33,9 @@ public class IGZLocationError: NSError {
     required public init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
+
+    public var underlyingError: NSError? {
+        return userInfo[NSUnderlyingErrorKey] as? NSError
+    }
     
 }
