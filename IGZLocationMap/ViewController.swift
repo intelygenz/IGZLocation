@@ -10,6 +10,21 @@ import UIKit
 import MapKit
 import IGZLocation
 
+extension CLLocation: MKAnnotation {}
+
+extension CLCircularRegion: MKOverlay {
+    public var coordinate: CLLocationCoordinate2D {
+        return center
+    }
+
+    public var boundingMapRect: MKMapRect {
+        let coordinateRegion = MKCoordinateRegionMakeWithDistance(center, radius*2, radius*2)
+        let a = MKMapPointForCoordinate(CLLocationCoordinate2DMake(coordinateRegion.center.latitude + coordinateRegion.span.latitudeDelta / 2, coordinateRegion.center.longitude - coordinateRegion.span.longitudeDelta / 2))
+        let b = MKMapPointForCoordinate(CLLocationCoordinate2DMake(coordinateRegion.center.latitude - coordinateRegion.span.latitudeDelta / 2, coordinateRegion.center.longitude + coordinateRegion.span.longitudeDelta / 2))
+        return MKMapRectMake(min(a.x,b.x), min(a.y,b.y), abs(a.x-b.x), abs(a.y-b.y))
+    }
+}
+
 class ViewController: UIViewController {
 
     @IBOutlet private weak var mapView: MKMapView!
@@ -17,13 +32,17 @@ class ViewController: UIViewController {
     @IBOutlet private weak var headingLabel: UILabel!
 
     private let locationManager = IGZLocation.shared
-    fileprivate var annotations = [CLLocation]()
-    fileprivate var regions = [CLRegion]()
 
     override func viewDidLoad() {
         super.viewDidLoad()
 
         self.locationManager.delegates.append(self)
+    }
+
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+
+        launchLocation()
     }
 
     func launchLocation() {
@@ -32,13 +51,19 @@ class ViewController: UIViewController {
                 self.locationManager.requestLocation { location in
                     self.mapView.showsUserLocation = true
                     let region = CLCircularRegion(center: location.coordinate, radius: 50, identifier: UUID().uuidString)
+                    region.notifyOnEntry = true
+                    region.notifyOnExit = true
                     self.locationManager.startRegionUpdates(region, sequential: true, { region, state in
-                        self.regions.append(region)
+                        if let region = region as? CLCircularRegion, !self.mapView.overlays.contains(where: { overlay -> Bool in
+                            return overlay as? CLCircularRegion == region
+                        }) {
+                            self.mapView.addOverlays([region])
+                        }
                     })
                 }
 
                 self.locationManager.startLocationUpdates { locations in
-                    self.annotations.append(contentsOf: locations)
+                    self.mapView.addAnnotations(locations)
                 }
 
                 self.locationManager.startVisitUpdated { visit, visiting in
@@ -63,7 +88,17 @@ extension ViewController: IGZLocationDelegate {
 }
 
 extension ViewController: MKMapViewDelegate {
-    func mapViewDidFinishRenderingMap(_ mapView: MKMapView, fullyRendered: Bool) {
-        launchLocation()
+    func mapView(_ mapView: MKMapView, didUpdate userLocation: MKUserLocation) {
+        mapView.userTrackingMode = .followWithHeading
+    }
+
+    func mapView(_ mapView: MKMapView, rendererFor overlay: MKOverlay) -> MKOverlayRenderer {
+        if let region = overlay as? CLCircularRegion {
+            let renderer = MKCircleRenderer(circle: MKCircle(center: region.center, radius: region.radius))
+            renderer.fillColor = #colorLiteral(red: 0.01680417731, green: 0.1983509958, blue: 1, alpha: 0.5)
+            return renderer
+        }
+
+        return MKOverlayRenderer(overlay: overlay)
     }
 }
