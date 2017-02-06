@@ -23,6 +23,19 @@ extension CLCircularRegion: MKOverlay {
         let b = MKMapPointForCoordinate(CLLocationCoordinate2DMake(coordinateRegion.center.latitude - coordinateRegion.span.latitudeDelta / 2, coordinateRegion.center.longitude + coordinateRegion.span.longitudeDelta / 2))
         return MKMapRectMake(min(a.x,b.x), min(a.y,b.y), abs(a.x-b.x), abs(a.y-b.y))
     }
+
+    open override func isEqual(_ region: Any?) -> Bool {
+        guard let region = region as? CLCircularRegion else {
+            return false
+        }
+        return identifier == region.identifier && center == region.center && radius == region.radius
+    }
+}
+
+extension CLLocationCoordinate2D: Equatable {
+    public static func ==(lhs: CLLocationCoordinate2D, rhs: CLLocationCoordinate2D) -> Bool {
+        return lhs.latitude == rhs.latitude && lhs.longitude == rhs.longitude
+    }
 }
 
 class ViewController: UIViewController {
@@ -48,12 +61,13 @@ class ViewController: UIViewController {
     func launchLocation() {
         _ = locationManager.authorize(.authorizedAlways) { status in
             if status == .authorizedAlways {
+                if self.locationManager.regions.count > 0 {
+                    _ = self.locationManager.stopRegionUpdates(nil)
+                }
                 self.locationManager.requestLocation { location in
                     self.mapView.showsUserLocation = true
-                    let region = CLCircularRegion(center: location.coordinate, radius: 50, identifier: UUID().uuidString)
-                    region.notifyOnEntry = true
-                    region.notifyOnExit = true
-                    self.locationManager.startRegionUpdates(region, sequential: true, { region, state in
+                    let region = CLCircularRegion(center: location.coordinate, radius: 100, identifier: UUID().uuidString)
+                    self.locationManager.startRegionUpdates(region, sequential: true, notify: true, { region, state in
                         if let region = region as? CLCircularRegion, !self.mapView.overlays.contains(where: { overlay -> Bool in
                             return overlay as? CLCircularRegion == region
                         }) {

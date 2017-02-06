@@ -51,7 +51,7 @@ public protocol IGZLocationManager: NSObjectProtocol {
     func stopHeadingUpdates()
     func startSignificantLocationUpdates(_ handler: IGZLocationsHandler?)
     func stopSignificantLocationUpdates()
-    func startRegionUpdates(_ region: CLRegion, sequential: Bool, _ handler: IGZRegionHandler?)
+    func startRegionUpdates(_ region: CLRegion, sequential: Bool, notify: Bool?, _ handler: IGZRegionHandler?)
     func stopRegionUpdates(_ region: CLRegion?) -> Bool
     func requestRegion(_ region: CLRegion?, _ handler: IGZRegionHandler?) -> Bool
     func startDeferredLocationUpdates(distance: CLLocationDistance, timeout: TimeInterval, _ handler: IGZLocationsHandler?)

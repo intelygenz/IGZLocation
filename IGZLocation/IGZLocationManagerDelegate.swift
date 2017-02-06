@@ -67,9 +67,8 @@ extension IGZLocation: CLLocationManagerDelegate {
         if let lastLocation = location, let circularRegion = region as? CLCircularRegion, sequentialRegions, state == .outside {
             let temporaryHandlers = regionTemporaryHandlers
             if stopRegionUpdates(region) {
-                regionTemporaryHandlers = temporaryHandlers
                 let newRegion = CLCircularRegion(center: lastLocation.coordinate, radius: circularRegion.radius, identifier: region.identifier)
-                startRegionUpdates(newRegion, sequential: true, nil)
+                startRegionUpdates(newRegion, sequential: true, temporaryHandlers.last)
             }
         }
     }
@@ -101,9 +100,8 @@ extension IGZLocation: CLLocationManagerDelegate {
         if let lastLocation = location, let circularRegion = region as? CLCircularRegion, sequentialRegions {
             let temporaryHandlers = regionTemporaryHandlers
             if stopRegionUpdates(region) {
-                regionTemporaryHandlers = temporaryHandlers
                 let newRegion = CLCircularRegion(center: lastLocation.coordinate, radius: circularRegion.radius, identifier: region.identifier)
-                startRegionUpdates(newRegion, sequential: true, nil)
+                startRegionUpdates(newRegion, sequential: true, temporaryHandlers.last)
             }
         }
     }
@@ -146,7 +144,9 @@ extension IGZLocation: CLLocationManagerDelegate {
         for authorizationTemporaryHandler in authorizationTemporaryHandlers {
             authorizationTemporaryHandler(status)
         }
-        authorizationTemporaryHandlers.removeAll()
+        if status != .notDetermined {
+            authorizationTemporaryHandlers.removeAll()
+        }
         for authorizationHandler in authorizationHandlers {
             authorizationHandler(status)
         }

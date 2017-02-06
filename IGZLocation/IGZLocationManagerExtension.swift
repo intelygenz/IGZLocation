@@ -131,10 +131,14 @@ extension IGZLocation: IGZLocationManager {
 
     public func authorize(_ status: CLAuthorizationStatus, _ handler: IGZAuthorizationHandler? = nil) -> Bool {
         guard status != authorization else {
-            handler?(status)
+            if let handler = handler {
+                handler(status)
+            }
             return true
         }
-        authorizationTemporaryHandlers.append({ newStatus in handler?(newStatus) })
+        if let handler = handler {
+            authorizationTemporaryHandlers.append(handler)
+        }
         switch status {
         case .authorizedAlways:
             locationManager.requestAlwaysAuthorization()
@@ -159,14 +163,18 @@ extension IGZLocation: IGZLocationManager {
         guard authorized && locationAvailable else {
             _ = authorize(authorization, { newStatus in
                 if self.authorized(newStatus) {
-                    self.locationsTemporaryHandlers.append({ locations in handler?(locations) })
+                    if let handler = handler {
+                        self.locationsTemporaryHandlers.append(handler)
+                    }
                     self.locationManager.startUpdatingLocation()
                 }
             })
             return
         }
 
-        locationsTemporaryHandlers.append({ locations in handler?(locations) })
+        if let handler = handler {
+            locationsTemporaryHandlers.append(handler)
+        }
         locationManager.startUpdatingLocation()
     }
 
@@ -180,14 +188,18 @@ extension IGZLocation: IGZLocationManager {
         guard authorized && locationAvailable else {
             _ = authorize(authorization, { newStatus in
                 if self.authorized(newStatus) {
-                    self.locationTemporaryHandlers.append({ location in handler?(location) })
+                    if let handler = handler {
+                        self.locationTemporaryHandlers.append(handler)
+                    }
                     self.locationManager.requestLocation()
                 }
             })
             return
         }
 
-        locationTemporaryHandlers.append({ location in handler?(location) })
+        if let handler = handler {
+            locationTemporaryHandlers.append(handler)
+        }
         locationManager.requestLocation()
     }
 
@@ -195,14 +207,18 @@ extension IGZLocation: IGZLocationManager {
         guard authorized && headingAvailable else {
             _ = authorize(authorization, { newStatus in
                 if self.authorized(newStatus) {
-                    self.headingTemporaryHandlers.append({ heading in handler?(heading) })
+                    if let handler = handler {
+                        self.headingTemporaryHandlers.append(handler)
+                    }
                     self.locationManager.startUpdatingHeading()
                 }
             })
             return
         }
 
-        headingTemporaryHandlers.append({ heading in handler?(heading) })
+        if let handler = handler {
+            headingTemporaryHandlers.append(handler)
+        }
         locationManager.startUpdatingHeading()
     }
 
@@ -215,14 +231,18 @@ extension IGZLocation: IGZLocationManager {
         guard authorized && significantLocationAvailable else {
             _ = authorize(authorization, { newStatus in
                 if self.authorized(newStatus) {
-                    self.locationsTemporaryHandlers.append({ locations in handler?(locations) })
+                    if let handler = handler {
+                        self.locationsTemporaryHandlers.append(handler)
+                    }
                     self.locationManager.startMonitoringSignificantLocationChanges()
                 }
             })
             return
         }
 
-        locationsTemporaryHandlers.append({ locations in handler?(locations) })
+        if let handler = handler {
+            locationsTemporaryHandlers.append(handler)
+        }
         locationManager.startMonitoringSignificantLocationChanges()
     }
 
@@ -231,12 +251,18 @@ extension IGZLocation: IGZLocationManager {
         locationManager.stopMonitoringSignificantLocationChanges()
     }
 
-    public func startRegionUpdates(_ region: CLRegion, sequential: Bool = false, _ handler: IGZRegionHandler? = nil) {
+    public func startRegionUpdates(_ region: CLRegion, sequential: Bool = false, notify: Bool? = nil, _ handler: IGZRegionHandler? = nil) {
+        if let notify = notify {
+            region.notifyOnEntry = notify
+            region.notifyOnExit = notify
+        }
         guard authorized && regionAvailable(type(of: region)) else {
             _ = authorize(authorization, { newStatus in
                 if self.authorized(newStatus) {
                     self.sequentialRegions = sequential
-                    self.regionTemporaryHandlers.append({ region, state in handler?(region, state) })
+                    if let handler = handler {
+                        self.regionTemporaryHandlers.append(handler)
+                    }
                     self.locationManager.startMonitoring(for: region)
                 }
             })
@@ -244,7 +270,9 @@ extension IGZLocation: IGZLocationManager {
         }
 
         sequentialRegions = sequential
-        regionTemporaryHandlers.append({ region, state in handler?(region, state) })
+        if let handler = handler {
+            regionTemporaryHandlers.append(handler)
+        }
         locationManager.startMonitoring(for: region)
     }
 
@@ -260,24 +288,22 @@ extension IGZLocation: IGZLocationManager {
             }
             return false
         }
+
         sequentialRegions = false
         regionTemporaryHandlers.removeAll()
         if let region = region {
             locationManager.stopMonitoring(for: region)
-            return true
-        } else if let region = regions.first {
-            locationManager.stopMonitoring(for: region)
-            return true
         }
-        return false
+        else {
+            for region in regions {
+                locationManager.stopMonitoring(for: region)
+            }
+        }
+        return true
     }
 
     public func requestRegion(_ region: CLRegion? = nil, _ handler: IGZRegionHandler? = nil) -> Bool {
-        var requestedRegion: CLRegion? = region
-        if requestedRegion == nil {
-            requestedRegion = regions.first
-        }
-        guard let region = requestedRegion else {
+        guard regions.count > 0 else {
             let error = NSError(domain: kCLErrorDomain, code: CLError.regionMonitoringDenied.rawValue, userInfo: [NSLocalizedDescriptionKey: "You don't have any monitored regions."])
             let regionError = IGZLocationError(error)
             for delegate in delegates {
@@ -288,19 +314,37 @@ extension IGZLocation: IGZLocationManager {
             }
             return false
         }
-        guard authorized && regionAvailable(type(of: region)) else {
+
+        guard authorized && regionAvailable(region != nil ? type(of: region!) : CLRegion.self) else {
             _ = authorize(authorization, { newStatus in
                 if self.authorized(newStatus) {
-                    self.regionTemporaryHandlers.append({ region, state in handler?(region, state) })
-                    self.locationManager.requestState(for: region)
+                    if let handler = handler {
+                        self.regionTemporaryHandlers.append(handler)
+                    }
+                    if let region = region {
+                        self.locationManager.requestState(for: region)
+                    }
+                    else {
+                        for region in self.regions {
+                            self.locationManager.requestState(for: region)
+                        }
+                    }
                 }
             })
             return true
         }
 
-        regionTemporaryHandlers.append({ region, state in handler?(region, state) })
-        locationManager.requestState(for: region)
-
+        if let handler = handler {
+            regionTemporaryHandlers.append(handler)
+        }
+        if let region = region {
+            locationManager.requestState(for: region)
+        }
+        else {
+            for region in regions {
+                locationManager.requestState(for: region)
+            }
+        }
         return true
     }
 
@@ -308,14 +352,18 @@ extension IGZLocation: IGZLocationManager {
         guard authorized && deferredLocationAvailable else {
             _ = authorize(authorization, { newStatus in
                 if self.authorized(newStatus) {
-                    self.locationsTemporaryHandlers.append({ locations in handler?(locations) })
+                    if let handler = handler {
+                        self.locationsTemporaryHandlers.append(handler)
+                    }
                     self.locationManager.allowDeferredLocationUpdates(untilTraveled: distance, timeout: timeout)
                 }
             })
             return
         }
 
-        locationsTemporaryHandlers.append({ locations in handler?(locations) })
+        if let handler = handler {
+            locationsTemporaryHandlers.append(handler)
+        }
         locationManager.allowDeferredLocationUpdates(untilTraveled: distance, timeout: timeout)
     }
 
@@ -328,14 +376,18 @@ extension IGZLocation: IGZLocationManager {
         guard authorized else {
             _ = authorize(authorization, { newStatus in
                 if self.authorized(newStatus) {
-                    self.visitTemporaryHandlers.append({ visit, visiting in handler?(visit, visiting) })
+                    if let handler = handler {
+                        self.visitTemporaryHandlers.append(handler)
+                    }
                     self.locationManager.startMonitoringVisits()
                 }
             })
             return
         }
 
-        visitTemporaryHandlers.append({ visit, visiting in handler?(visit, visiting) })
+        if let handler = handler {
+            visitTemporaryHandlers.append(handler)
+        }
         locationManager.startMonitoringVisits()
     }
 
