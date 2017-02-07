@@ -8,17 +8,19 @@
 
 import Foundation
 
-struct IGZLocationNotifications {
-    static let didUpdateLocation = NSNotification.Name("IGZLocationDidUpdateLocationNotification")
-    static let didUpdateLocations = NSNotification.Name("IGZLocationDidUpdateLocationsNotification")
-    static let didUpdateHeading = NSNotification.Name("IGZLocationDidUpdateHeadingNotification")
-    static let didUpdateRegion = NSNotification.Name("IGZLocationDidUpdateRegionNotification")
-    static let didFail = NSNotification.Name("IGZLocationDidFailNotification")
-    static let didChangeAuthorization = NSNotification.Name("IGZLocationDidChangeAuthorizationNotification")
-    static let didVisit = NSNotification.Name("IGZLocationDidVisitNotification")
+public struct IGZLocationNotifications {
+    public static let didUpdateLocation = NSNotification.Name("IGZLocationDidUpdateLocationNotification")
+    public static let didUpdateLocations = NSNotification.Name("IGZLocationDidUpdateLocationsNotification")
+    public static let didUpdateHeading = NSNotification.Name("IGZLocationDidUpdateHeadingNotification")
+    /// Includes regionState in userInfo
+    public static let didUpdateRegion = NSNotification.Name("IGZLocationDidUpdateRegionNotification")
+    public static let didFail = NSNotification.Name("IGZLocationDidFailNotification")
+    public static let didChangeAuthorization = NSNotification.Name("IGZLocationDidChangeAuthorizationNotification")
+    /// Includes visiting in userInfo
+    public static let didVisit = NSNotification.Name("IGZLocationDidVisitNotification")
 
-    struct userInfoKeys {
-        static let regionState = "IGZLocationRegionStateNotificationUserInfoKey"
-        static let visiting = "IGZLocationVisitingNotificationUserInfoKey"
+    public struct userInfoKeys {
+        public static let regionState = "IGZLocationRegionStateNotificationUserInfoKey"
+        public static let visiting = "IGZLocationVisitingNotificationUserInfoKey"
     }
 }

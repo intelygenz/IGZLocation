@@ -8,6 +8,11 @@
 
 import CoreLocation
 
+/**
+ IGZLocationManager
+
+ The IGZLocation is your entry point to the location service.
+ */
 public class IGZLocation: NSObject {
 
     public var locationHandlers = [IGZLocationHandler]()

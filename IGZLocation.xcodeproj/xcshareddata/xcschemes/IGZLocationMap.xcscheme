@@ -39,6 +39,16 @@
                ReferencedContainer = "container:IGZLocation.xcodeproj">
             </BuildableReference>
          </TestableReference>
+         <TestableReference
+            skipped = "NO">
+            <BuildableReference
+               BuildableIdentifier = "primary"
+               BlueprintIdentifier = "81925D1E1E40AA78001701F3"
+               BuildableName = "IGZLocationTests.xctest"
+               BlueprintName = "IGZLocationTests"
+               ReferencedContainer = "container:IGZLocation.xcodeproj">
+            </BuildableReference>
+         </TestableReference>
       </Testables>
       <MacroExpansion>
          <BuildableReference

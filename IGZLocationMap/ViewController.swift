@@ -44,7 +44,7 @@ class ViewController: UIViewController {
     @IBOutlet private weak var visitLabel: UILabel!
     @IBOutlet private weak var headingLabel: UILabel!
 
-    private let locationManager = IGZLocation.shared
+    private let locationManager: IGZLocationManager = IGZLocation.shared
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -64,23 +64,26 @@ class ViewController: UIViewController {
                 if self.locationManager.regions.count > 0 {
                     _ = self.locationManager.stopRegionUpdates(nil)
                 }
-                self.locationManager.requestLocation { location in
-                    self.mapView.showsUserLocation = true
-                    let region = CLCircularRegion(center: location.coordinate, radius: 100, identifier: UUID().uuidString)
-                    self.locationManager.startRegionUpdates(region, sequential: true, notify: true, { region, state in
-                        if let region = region as? CLCircularRegion, !self.mapView.overlays.contains(where: { overlay -> Bool in
-                            return overlay as? CLCircularRegion == region
-                        }) {
-                            self.mapView.addOverlays([region])
-                        }
-                    })
+                if #available(iOS 9.0, *) {
+                    self.locationManager.background = true
+                    self.locationManager.requestLocation { location in
+                        self.mapView.showsUserLocation = true
+                        let region = CLCircularRegion(center: location.coordinate, radius: 100, identifier: UUID().uuidString)
+                        self.locationManager.startRegionUpdates(region, sequential: true, notify: true, { region, state in
+                            if let region = region as? CLCircularRegion, !self.mapView.overlays.contains(where: { overlay -> Bool in
+                                return overlay as? CLCircularRegion == region
+                            }) {
+                                self.mapView.addOverlays([region])
+                            }
+                        })
+                    }
                 }
 
                 self.locationManager.startLocationUpdates { locations in
                     self.mapView.addAnnotations(locations)
                 }
 
-                self.locationManager.startVisitUpdated { visit, visiting in
+                self.locationManager.startVisitUpdates { visit, visiting in
                     self.visitLabel.text = visiting ? "VISITING: \(visit.coordinate.latitude), \(visit.coordinate.longitude)" : nil
                 }
 

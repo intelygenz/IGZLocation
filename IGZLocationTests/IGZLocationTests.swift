@@ -74,10 +74,12 @@ class IGZLocationTests: XCTestCase {
             XCTAssertNotNil(self.locationManager.location)
             XCTAssertEqual(location, self.locationManager.location)
         }
-        locationManager.requestLocation { location in
-            XCTAssertNotNil(location)
-            XCTAssertNotNil(self.locationManager.location)
-            XCTAssertEqual(location, self.locationManager.location)
+        if #available(iOS 9.0, *) {
+            locationManager.requestLocation { location in
+                XCTAssertNotNil(location)
+                XCTAssertNotNil(self.locationManager.location)
+                XCTAssertEqual(location, self.locationManager.location)
+            }
         }
     }
     

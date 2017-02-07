@@ -78,9 +78,24 @@ extension IGZLocation: IGZLocationManager {
     }
     public var background: Bool {
         get {
-            return locationManager.allowsBackgroundLocationUpdates
+            if #available(iOS 9.0, *) {
+                return locationManager.allowsBackgroundLocationUpdates
+            } else {
+                return false
+            }
         }
         set {
+            guard #available(iOS 9.0, *) else {
+                let error = NSError(domain: kCLErrorDomain, code: CLError.denied.rawValue, userInfo: [NSLocalizedDescriptionKey: "Background location updates is only available on iOS 9 or newer."])
+                let backgroundError = IGZLocationError(error)
+                for delegate in delegates {
+                    delegate.didFail?(backgroundError)
+                }
+                for errorHandler in errorHandlers {
+                    errorHandler(backgroundError)
+                }
+                return
+            }
             if let backgroundModes = Bundle.main.infoDictionary?["UIBackgroundModes"] as? [String], backgroundModes.contains("location") {
                 locationManager.allowsBackgroundLocationUpdates = newValue
             }
@@ -185,6 +200,18 @@ extension IGZLocation: IGZLocationManager {
     }
 
     public func requestLocation(_ handler: IGZLocationHandler? = nil) {
+        guard #available(iOS 9.0, *) else {
+            let error = NSError(domain: kCLErrorDomain, code: CLError.denied.rawValue, userInfo: [NSLocalizedDescriptionKey: "Request location is only available on iOS 9 or newer."])
+            let backgroundError = IGZLocationError(error)
+            for delegate in delegates {
+                delegate.didFail?(backgroundError)
+            }
+            for errorHandler in errorHandlers {
+                errorHandler(backgroundError)
+            }
+            return
+        }
+
         guard authorized && locationAvailable else {
             _ = authorize(authorization, { newStatus in
                 if self.authorized(newStatus) {
@@ -256,7 +283,7 @@ extension IGZLocation: IGZLocationManager {
             region.notifyOnEntry = notify
             region.notifyOnExit = notify
         }
-        guard authorized && regionAvailable(type(of: region)) else {
+        guard authorized && regionAvailable(type(of: region)) && (region as? CLCircularRegion)?.radius ?? 0 < maximumRegionDistance else {
             _ = authorize(authorization, { newStatus in
                 if self.authorized(newStatus) {
                     self.sequentialRegions = sequential
@@ -372,7 +399,7 @@ extension IGZLocation: IGZLocationManager {
         locationManager.disallowDeferredLocationUpdates()
     }
 
-    public func startVisitUpdated(_ handler: IGZVisitHandler? = nil) {
+    public func startVisitUpdates(_ handler: IGZVisitHandler? = nil) {
         guard authorized else {
             _ = authorize(authorization, { newStatus in
                 if self.authorized(newStatus) {
@@ -391,7 +418,7 @@ extension IGZLocation: IGZLocationManager {
         locationManager.startMonitoringVisits()
     }
 
-    public func stopVisitUpdated() {
+    public func stopVisitUpdates() {
         visitTemporaryHandlers.removeAll()
         locationManager.stopMonitoringVisits()
     }
