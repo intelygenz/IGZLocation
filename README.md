@@ -5,7 +5,7 @@
 [![License](https://img.shields.io/cocoapods/l/IGZLocation.svg?style=flat)](http://cocoapods.org/pods/IGZLocation)
 [![Platform](https://img.shields.io/cocoapods/p/IGZLocation.svg?style=flat)](http://cocoapods.org/pods/IGZLocation)
 [![Carthage compatible](https://img.shields.io/badge/Carthage-compatible-4BC51D.svg?style=flat)](https://github.com/Carthage/Carthage)
-[![Docs](https://img.shields.io/badge/docs-here-green.svg?style=flat)](http://cocoadocs.org/docsets/IGZLocation/1.0.2/Protocols/IGZLocationManager.html)
+[![Docs](https://img.shields.io/badge/docs-here-green.svg?style=flat)](http://cocoadocs.org/docsets/IGZLocation/1.0.3/Protocols/IGZLocationManager.html)
 
 CLLocationManager Swift 3 wrapper with multiple closure handlers and delegates allowed, notifications, sequential geofencing, self-authorization and, of course, everything is testable. #InCodeWeTrust
 
