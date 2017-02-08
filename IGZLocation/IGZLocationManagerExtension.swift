@@ -149,7 +149,7 @@ extension IGZLocation: IGZLocationManager {
             if let handler = handler {
                 handler(status)
             }
-            return true
+            return authorized(status)
         }
         if let handler = handler {
             authorizationTemporaryHandlers.append(handler)

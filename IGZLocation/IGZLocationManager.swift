@@ -356,7 +356,7 @@ public protocol IGZLocationManager: NSObjectProtocol {
      - Parameters:
         - region: The region object that defines the boundary to monitor. This parameter must not be nil.
         - sequential: When using CLCircularRegion, the center will be updated with the user current location when the user exits the region. By default, this is false.
-        - notify: App will be launched when the user enters or exits the region. By default, this is true.
+        - notify: App will be launched when the user enters or exits the region. If false, only notifies when requestRegion: and sequential is disabled. By default, this is true.
         - handler: The single request handler.
      */
     func startRegionUpdates(_ region: CLRegion, sequential: Bool, notify: Bool?, _ handler: IGZRegionHandler?)

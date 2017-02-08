@@ -37,7 +37,7 @@ public class IGZLocation: NSObject {
     final let locationManager = CLLocationManager()
     final let notificationCenter = NotificationCenter.default
 
-    override init() {
+    public override init() {
         super.init()
         locationManager.delegate = self
     }
