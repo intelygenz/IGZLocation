@@ -10,41 +10,41 @@ import CoreLocation
 
 extension IGZLocation: IGZLocationManager {
 
-    public static var shared: IGZLocationManager = IGZLocation()
+    open static var shared: IGZLocationManager = IGZLocation()
 
-    public var authorized: Bool {
+    open var authorized: Bool {
         return authorized(authorization)
     }
 
-    public var locationAvailable: Bool {
+    open var locationAvailable: Bool {
         return CLLocationManager.locationServicesEnabled()
     }
-    public var headingAvailable: Bool {
+    open var headingAvailable: Bool {
         return CLLocationManager.headingAvailable()
     }
-    public var significantLocationAvailable: Bool {
+    open var significantLocationAvailable: Bool {
         return CLLocationManager.significantLocationChangeMonitoringAvailable()
     }
-    public var deferredLocationAvailable: Bool {
+    open var deferredLocationAvailable: Bool {
         return CLLocationManager.deferredLocationUpdatesAvailable()
     }
-    public var authorization: CLAuthorizationStatus {
+    open var authorization: CLAuthorizationStatus {
         return CLLocationManager.authorizationStatus()
     }
-    public var location: CLLocation? {
+    open var location: CLLocation? {
         return locationManager.location
     }
-    public var heading: CLHeading? {
+    open var heading: CLHeading? {
         return locationManager.heading
     }
-    public var maximumRegionDistance: CLLocationDistance {
+    open var maximumRegionDistance: CLLocationDistance {
         return locationManager.maximumRegionMonitoringDistance
     }
-    public var regions: Set<CLRegion> {
+    open var regions: Set<CLRegion> {
         return locationManager.monitoredRegions
     }
 
-    public var activity: CLActivityType {
+    open var activity: CLActivityType {
         get {
             return locationManager.activityType
         }
@@ -52,7 +52,7 @@ extension IGZLocation: IGZLocationManager {
             locationManager.activityType = newValue
         }
     }
-    public var distanceFilter: CLLocationDistance {
+    open var distanceFilter: CLLocationDistance {
         get {
             return locationManager.distanceFilter
         }
@@ -60,7 +60,7 @@ extension IGZLocation: IGZLocationManager {
             locationManager.distanceFilter = newValue
         }
     }
-    public var accuracy: CLLocationAccuracy {
+    open var accuracy: CLLocationAccuracy {
         get {
             return locationManager.desiredAccuracy
         }
@@ -68,7 +68,7 @@ extension IGZLocation: IGZLocationManager {
             locationManager.desiredAccuracy = newValue
         }
     }
-    public var pausesAutomatically: Bool {
+    open var pausesAutomatically: Bool {
         get {
             return locationManager.pausesLocationUpdatesAutomatically
         }
@@ -76,7 +76,7 @@ extension IGZLocation: IGZLocationManager {
             locationManager.pausesLocationUpdatesAutomatically = newValue
         }
     }
-    public var background: Bool {
+    open var background: Bool {
         get {
             if #available(iOS 9.0, *) {
                 return locationManager.allowsBackgroundLocationUpdates
@@ -111,7 +111,7 @@ extension IGZLocation: IGZLocationManager {
             }
         }
     }
-    public var headingFilter: CLLocationDegrees {
+    open var headingFilter: CLLocationDegrees {
         get {
             return locationManager.headingFilter
         }
@@ -119,7 +119,7 @@ extension IGZLocation: IGZLocationManager {
             locationManager.headingFilter = newValue
         }
     }
-    public var orientation: CLDeviceOrientation {
+    open var orientation: CLDeviceOrientation {
         get {
             return locationManager.headingOrientation
         }
@@ -128,23 +128,23 @@ extension IGZLocation: IGZLocationManager {
         }
     }
 
-    public func shouldDisplayHeadingCalibration(_ display: Bool = true) {
+    open func shouldDisplayHeadingCalibration(_ display: Bool = true) {
         displayHeadingCalibration = display
     }
 
-    public func dismissHeadingCalibration() {
+    open func dismissHeadingCalibration() {
         locationManager.dismissHeadingCalibrationDisplay()
     }
 
-    public func regionAvailable(_ regionClass: CLRegion.Type) -> Bool {
+    open func regionAvailable(_ regionClass: CLRegion.Type) -> Bool {
         return CLLocationManager.isMonitoringAvailable(for: regionClass)
     }
 
-    public func authorized(_ status: CLAuthorizationStatus) -> Bool {
+    open func authorized(_ status: CLAuthorizationStatus) -> Bool {
         return status.rawValue >= CLAuthorizationStatus.authorizedAlways.rawValue
     }
 
-    public func authorize(_ status: CLAuthorizationStatus, _ handler: IGZAuthorizationHandler? = nil) -> Bool {
+    open func authorize(_ status: CLAuthorizationStatus, _ handler: IGZAuthorizationHandler? = nil) -> Bool {
         guard status != authorization else {
             if let handler = handler {
                 handler(status)
@@ -174,7 +174,7 @@ extension IGZLocation: IGZLocationManager {
         }
     }
 
-    public func startLocationUpdates(_ handler: IGZLocationsHandler? = nil) {
+    open func startLocationUpdates(_ handler: IGZLocationsHandler? = nil) {
         guard authorized && locationAvailable else {
             _ = authorize(authorization, { newStatus in
                 if self.authorized(newStatus) {
@@ -193,13 +193,13 @@ extension IGZLocation: IGZLocationManager {
         locationManager.startUpdatingLocation()
     }
 
-    public func stopLocationUpdates() {
+    open func stopLocationUpdates() {
         locationsTemporaryHandlers.removeAll()
         locationTemporaryHandlers.removeAll()
         locationManager.stopUpdatingLocation()
     }
 
-    public func requestLocation(_ handler: IGZLocationHandler? = nil) {
+    open func requestLocation(_ handler: IGZLocationHandler? = nil) {
         guard #available(iOS 9.0, *) else {
             let error = NSError(domain: kCLErrorDomain, code: CLError.denied.rawValue, userInfo: [NSLocalizedDescriptionKey: "Request location is only available on iOS 9 or newer."])
             let backgroundError = IGZLocationError(error)
@@ -230,7 +230,7 @@ extension IGZLocation: IGZLocationManager {
         locationManager.requestLocation()
     }
 
-    public func startHeadingUpdates(_ handler: IGZHeadingHandler? = nil) {
+    open func startHeadingUpdates(_ handler: IGZHeadingHandler? = nil) {
         guard authorized && headingAvailable else {
             _ = authorize(authorization, { newStatus in
                 if self.authorized(newStatus) {
@@ -249,12 +249,12 @@ extension IGZLocation: IGZLocationManager {
         locationManager.startUpdatingHeading()
     }
 
-    public func stopHeadingUpdates() {
+    open func stopHeadingUpdates() {
         headingTemporaryHandlers.removeAll()
         locationManager.stopUpdatingHeading()
     }
 
-    public func startSignificantLocationUpdates(_ handler: IGZLocationsHandler? = nil) {
+    open func startSignificantLocationUpdates(_ handler: IGZLocationsHandler? = nil) {
         guard authorized && significantLocationAvailable else {
             _ = authorize(authorization, { newStatus in
                 if self.authorized(newStatus) {
@@ -273,12 +273,12 @@ extension IGZLocation: IGZLocationManager {
         locationManager.startMonitoringSignificantLocationChanges()
     }
 
-    public func stopSignificantLocationUpdates() {
+    open func stopSignificantLocationUpdates() {
         locationsTemporaryHandlers.removeAll()
         locationManager.stopMonitoringSignificantLocationChanges()
     }
 
-    public func startRegionUpdates(_ region: CLRegion, sequential: Bool = false, notify: Bool? = nil, _ handler: IGZRegionHandler? = nil) {
+    open func startRegionUpdates(_ region: CLRegion, sequential: Bool = false, notify: Bool? = nil, _ handler: IGZRegionHandler? = nil) {
         if let notify = notify {
             region.notifyOnEntry = notify
             region.notifyOnExit = notify
@@ -303,7 +303,7 @@ extension IGZLocation: IGZLocationManager {
         locationManager.startMonitoring(for: region)
     }
 
-    public func stopRegionUpdates(_ region: CLRegion? = nil) -> Bool {
+    open func stopRegionUpdates(_ region: CLRegion? = nil) -> Bool {
         guard regions.count > 0 else {
             let error = NSError(domain: kCLErrorDomain, code: CLError.regionMonitoringDenied.rawValue, userInfo: [NSLocalizedDescriptionKey: "You don't have any monitored regions."])
             let regionError = IGZLocationError(error)
@@ -329,7 +329,7 @@ extension IGZLocation: IGZLocationManager {
         return true
     }
 
-    public func requestRegion(_ region: CLRegion? = nil, _ handler: IGZRegionHandler? = nil) -> Bool {
+    open func requestRegion(_ region: CLRegion? = nil, _ handler: IGZRegionHandler? = nil) -> Bool {
         guard regions.count > 0 else {
             let error = NSError(domain: kCLErrorDomain, code: CLError.regionMonitoringDenied.rawValue, userInfo: [NSLocalizedDescriptionKey: "You don't have any monitored regions."])
             let regionError = IGZLocationError(error)
@@ -375,7 +375,7 @@ extension IGZLocation: IGZLocationManager {
         return true
     }
 
-    public func startDeferredLocationUpdates(distance: CLLocationDistance, timeout: TimeInterval, _ handler: IGZLocationsHandler? = nil) {
+    open func startDeferredLocationUpdates(distance: CLLocationDistance, timeout: TimeInterval, _ handler: IGZLocationsHandler? = nil) {
         guard authorized && deferredLocationAvailable else {
             _ = authorize(authorization, { newStatus in
                 if self.authorized(newStatus) {
@@ -394,12 +394,12 @@ extension IGZLocation: IGZLocationManager {
         locationManager.allowDeferredLocationUpdates(untilTraveled: distance, timeout: timeout)
     }
 
-    public func stopDeferredLocationUpdates() {
+    open func stopDeferredLocationUpdates() {
         locationsTemporaryHandlers.removeAll()
         locationManager.disallowDeferredLocationUpdates()
     }
 
-    public func startVisitUpdates(_ handler: IGZVisitHandler? = nil) {
+    open func startVisitUpdates(_ handler: IGZVisitHandler? = nil) {
         guard authorized else {
             _ = authorize(authorization, { newStatus in
                 if self.authorized(newStatus) {
@@ -418,7 +418,7 @@ extension IGZLocation: IGZLocationManager {
         locationManager.startMonitoringVisits()
     }
 
-    public func stopVisitUpdates() {
+    open func stopVisitUpdates() {
         visitTemporaryHandlers.removeAll()
         locationManager.stopMonitoringVisits()
     }

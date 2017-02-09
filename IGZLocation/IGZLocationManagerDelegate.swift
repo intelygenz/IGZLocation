@@ -10,7 +10,7 @@ import CoreLocation
 
 extension IGZLocation: CLLocationManagerDelegate {
 
-    public func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
+    open func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
         notificationCenter.post(name: .IGZLocationDidUpdateLocations, object: locations)
         delegates.forEach { delegate in
             delegate.didUpdateLocations?(locations)
@@ -36,7 +36,7 @@ extension IGZLocation: CLLocationManagerDelegate {
         }
     }
 
-    public func locationManager(_ manager: CLLocationManager, didUpdateHeading newHeading: CLHeading) {
+    open func locationManager(_ manager: CLLocationManager, didUpdateHeading newHeading: CLHeading) {
         notificationCenter.post(name: .IGZLocationDidUpdateHeading, object: newHeading)
         delegates.forEach { delegate in
             delegate.didUpdateHeading?(newHeading)
@@ -49,11 +49,11 @@ extension IGZLocation: CLLocationManagerDelegate {
         }
     }
 
-    public func locationManagerShouldDisplayHeadingCalibration(_ manager: CLLocationManager) -> Bool {
+    open func locationManagerShouldDisplayHeadingCalibration(_ manager: CLLocationManager) -> Bool {
         return displayHeadingCalibration
     }
 
-    public func locationManager(_ manager: CLLocationManager, didDetermineState state: CLRegionState, for region: CLRegion) {
+    open func locationManager(_ manager: CLLocationManager, didDetermineState state: CLRegionState, for region: CLRegion) {
         notificationCenter.post(name: .IGZLocationDidUpdateRegion, object: region, userInfo: [IGZLocationRegionStateUserInfoKey: state])
         delegates.forEach { delegate in
             delegate.didUpdateRegion?(region, state)
@@ -73,7 +73,7 @@ extension IGZLocation: CLLocationManagerDelegate {
         }
     }
 
-    public func locationManager(_ manager: CLLocationManager, didEnterRegion region: CLRegion) {
+    open func locationManager(_ manager: CLLocationManager, didEnterRegion region: CLRegion) {
         notificationCenter.post(name: .IGZLocationDidUpdateRegion, object: region, userInfo: [IGZLocationRegionStateUserInfoKey: CLRegionState.inside])
         delegates.forEach { delegate in
             delegate.didUpdateRegion?(region, .inside)
@@ -86,7 +86,7 @@ extension IGZLocation: CLLocationManagerDelegate {
         }
     }
 
-    public func locationManager(_ manager: CLLocationManager, didExitRegion region: CLRegion) {
+    open func locationManager(_ manager: CLLocationManager, didExitRegion region: CLRegion) {
         notificationCenter.post(name: .IGZLocationDidUpdateRegion, object: region, userInfo: [IGZLocationRegionStateUserInfoKey: CLRegionState.outside])
         delegates.forEach { delegate in
             delegate.didUpdateRegion?(region, .outside)
@@ -106,7 +106,7 @@ extension IGZLocation: CLLocationManagerDelegate {
         }
     }
 
-    public func locationManager(_ manager: CLLocationManager, didFailWithError error: Error) {
+    open func locationManager(_ manager: CLLocationManager, didFailWithError error: Error) {
         let locationError = IGZLocationError(error)
         notificationCenter.post(name: .IGZLocationDidFail, object: locationError)
         delegates.forEach { delegate in
@@ -121,7 +121,7 @@ extension IGZLocation: CLLocationManagerDelegate {
         }
     }
 
-    public func locationManager(_ manager: CLLocationManager, monitoringDidFailFor region: CLRegion?, withError error: Error) {
+    open func locationManager(_ manager: CLLocationManager, monitoringDidFailFor region: CLRegion?, withError error: Error) {
         let locationError = IGZLocationError(error, region: region)
         notificationCenter.post(name: .IGZLocationDidFail, object: locationError)
         delegates.forEach { delegate in
@@ -136,7 +136,7 @@ extension IGZLocation: CLLocationManagerDelegate {
         }
     }
 
-    public func locationManager(_ manager: CLLocationManager, didChangeAuthorization status: CLAuthorizationStatus) {
+    open func locationManager(_ manager: CLLocationManager, didChangeAuthorization status: CLAuthorizationStatus) {
         notificationCenter.post(name: .IGZLocationDidChangeAuthorization, object: status)
         delegates.forEach { delegate in
             delegate.didChangeAuthorization?(status)
@@ -152,7 +152,7 @@ extension IGZLocation: CLLocationManagerDelegate {
         }
     }
 
-    public func locationManager(_ manager: CLLocationManager, didStartMonitoringFor region: CLRegion) {
+    open func locationManager(_ manager: CLLocationManager, didStartMonitoringFor region: CLRegion) {
         notificationCenter.post(name: .IGZLocationDidUpdateRegion, object: region, userInfo: [IGZLocationRegionStateUserInfoKey: CLRegionState.unknown])
         delegates.forEach { delegate in
             delegate.didUpdateRegion?(region, .unknown)
@@ -165,15 +165,15 @@ extension IGZLocation: CLLocationManagerDelegate {
         }
     }
 
-    public func locationManagerDidPauseLocationUpdates(_ manager: CLLocationManager) {
+    open func locationManagerDidPauseLocationUpdates(_ manager: CLLocationManager) {
 
     }
 
-    public func locationManagerDidResumeLocationUpdates(_ manager: CLLocationManager) {
+    open func locationManagerDidResumeLocationUpdates(_ manager: CLLocationManager) {
 
     }
 
-    public func locationManager(_ manager: CLLocationManager, didFinishDeferredUpdatesWithError error: Error?) {
+    open func locationManager(_ manager: CLLocationManager, didFinishDeferredUpdatesWithError error: Error?) {
         if let error = error {
             let locationError = IGZLocationError(error)
             notificationCenter.post(name: .IGZLocationDidFail, object: locationError)
@@ -190,7 +190,7 @@ extension IGZLocation: CLLocationManagerDelegate {
         }
     }
 
-    public func locationManager(_ manager: CLLocationManager, didVisit visit: CLVisit) {
+    open func locationManager(_ manager: CLLocationManager, didVisit visit: CLVisit) {
         let date = Date()
         let visiting = visit.arrivalDate < date && visit.departureDate > date
         notificationCenter.post(name: .IGZLocationDidVisit, object: visit, userInfo: [IGZLocationVisitingUserInfoKey: visiting])

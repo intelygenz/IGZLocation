@@ -8,7 +8,7 @@
 
 import CoreLocation
 
-public class IGZLocationError: NSError {
+open class IGZLocationError: NSError {
 
     fileprivate(set) var region: CLRegion?
 
@@ -34,7 +34,7 @@ public class IGZLocationError: NSError {
         fatalError("init(coder:) has not been implemented")
     }
 
-    public var underlyingError: NSError? {
+    open var underlyingError: NSError? {
         return userInfo[NSUnderlyingErrorKey] as? NSError
     }
     

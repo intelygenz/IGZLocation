@@ -13,16 +13,16 @@ import CoreLocation
 
  The IGZLocation is your entry point to the location service.
  */
-public class IGZLocation: NSObject {
+open class IGZLocation: NSObject {
 
-    public var locationHandlers = [IGZLocationHandler]()
-    public var locationsHandlers = [IGZLocationsHandler]()
-    public var errorHandlers = [IGZErrorHandler]()
-    public var headingHandlers = [IGZHeadingHandler]()
-    public var regionHandlers = [IGZRegionHandler]()
-    public var authorizationHandlers = [IGZAuthorizationHandler]()
-    public var visitHandlers = [IGZVisitHandler]()
-    public var delegates = [IGZLocationDelegate]()
+    open var locationHandlers = [IGZLocationHandler]()
+    open var locationsHandlers = [IGZLocationsHandler]()
+    open var errorHandlers = [IGZErrorHandler]()
+    open var headingHandlers = [IGZHeadingHandler]()
+    open var regionHandlers = [IGZRegionHandler]()
+    open var authorizationHandlers = [IGZAuthorizationHandler]()
+    open var visitHandlers = [IGZVisitHandler]()
+    open var delegates = [IGZLocationDelegate]()
 
     var locationTemporaryHandlers = [IGZLocationHandler]()
     var locationsTemporaryHandlers = [IGZLocationsHandler]()
