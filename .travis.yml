@@ -1,0 +1,9 @@
+language: objective-c
+xcode_project: IGZLocation.xcodeproj
+xcode_scheme: IGZLocation
+
+osx_image: xcode8.2
+xcode_sdk: iphonesimulator10.2
+
+script:
+- xcodebuild -project IGZLocation.xcodeproj -scheme IGZLocation -sdk iphonesimulator10.2 -destination "platform=iOS Simulator,name=iPhone 7,OS=10.1" -configuration Debug -enableCodeCoverage YES clean build test
