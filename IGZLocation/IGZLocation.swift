@@ -42,4 +42,23 @@ open class IGZLocation: NSObject {
         locationManager.delegate = self
     }
 
+    deinit {
+        locationManager.delegate = nil
+        delegates.removeAll()
+        locationTemporaryHandlers.removeAll()
+        locationsTemporaryHandlers.removeAll()
+        errorTemporaryHandlers.removeAll()
+        headingTemporaryHandlers.removeAll()
+        regionTemporaryHandlers.removeAll()
+        authorizationTemporaryHandlers.removeAll()
+        visitTemporaryHandlers.removeAll()
+        locationHandlers.removeAll()
+        locationsHandlers.removeAll()
+        errorHandlers.removeAll()
+        headingHandlers.removeAll()
+        regionHandlers.removeAll()
+        authorizationHandlers.removeAll()
+        visitHandlers.removeAll()
+    }
+
 }
