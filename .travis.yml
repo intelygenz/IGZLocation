@@ -1,12 +1,8 @@
-language: objective-c
-xcode_project: IGZLocation.xcodeproj
-xcode_scheme: IGZLocation
-
+language: swift
 osx_image: xcode8.3
-xcode_sdk: iphonesimulator10.3
-
 script:
-- xcodebuild -project IGZLocation.xcodeproj -scheme IGZLocation -sdk iphonesimulator10.3 -destination "platform=iOS Simulator,name=iPhone 7,OS=10.3" -configuration Debug -enableCodeCoverage YES clean build test
-
+- xcodebuild -project IGZLocation.xcodeproj -scheme IGZLocation -destination "platform=iOS
+  Simulator,name=iPhone 7,OS=10.3" -configuration Debug -enableCodeCoverage YES clean
+  build test
 after_success:
 - bash <(curl -s https://codecov.io/bash)
