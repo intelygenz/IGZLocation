@@ -1,3 +1,6 @@
+### IGZLocation 1.1.0
+
+* Swift 4.0
 
 ### IGZLocation 1.0.4
 

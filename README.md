@@ -9,7 +9,7 @@
 [![Docs](https://img.shields.io/cocoapods/metrics/doc-percent/IGZLocation.svg)](http://cocoadocs.org/docsets/IGZLocation)
 [![Build Status](https://travis-ci.org/intelygenz/IGZLocation.svg?branch=master)](https://travis-ci.org/intelygenz/IGZLocation)
 
-CLLocationManager Swift 3 wrapper with multiple closure handlers and delegates allowed, notifications, sequential geofencing, self-authorization and, of course, everything is testable. #InCodeWeTrust
+CLLocationManager Swift 4 wrapper with multiple closure handlers and delegates allowed, notifications, sequential geofencing, self-authorization and, of course, everything is testable. #InCodeWeTrust
 
 ![IGZLocation Screenshot](https://raw.githubusercontent.com/intelygenz/IGZLocation/master/screenshot.gif)
 
@@ -20,6 +20,12 @@ it, simply add the following line to your Podfile:
 
 ```ruby
 pod "IGZLocation"
+```
+
+For Swift 3 compatibility use:
+
+```ruby
+pod 'IGZLocation', '~> 1.0'
 ```
 
 #### Or you can install it with [Carthage](https://github.com/Carthage/Carthage):

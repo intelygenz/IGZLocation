@@ -15,6 +15,10 @@ import CoreLocation
  */
 open class IGZLocation: NSObject {
 
+    open var location: CLLocation? {
+        return locationManager.location
+    }
+
     open var locationHandlers = [IGZLocationHandler]()
     open var locationsHandlers = [IGZLocationsHandler]()
     open var errorHandlers = [IGZErrorHandler]()
@@ -59,6 +63,56 @@ open class IGZLocation: NSObject {
         regionHandlers.removeAll()
         authorizationHandlers.removeAll()
         visitHandlers.removeAll()
+    }
+
+    open func startLocationUpdates(_ handler: IGZLocationsHandler? = nil) {
+        guard authorized && locationAvailable else {
+            _ = authorize(authorization, { newStatus in
+                if self.authorized(newStatus) {
+                    if let handler = handler {
+                        self.locationsTemporaryHandlers.append(handler)
+                    }
+                    self.locationManager.startUpdatingLocation()
+                }
+            })
+            return
+        }
+
+        if let handler = handler {
+            locationsTemporaryHandlers.append(handler)
+        }
+        locationManager.startUpdatingLocation()
+    }
+
+    open func requestLocation(_ handler: IGZLocationHandler? = nil) {
+        guard #available(iOS 9.0, *) else {
+            let error = NSError(domain: kCLErrorDomain, code: CLError.denied.rawValue, userInfo: [NSLocalizedDescriptionKey: "Request location is only available on iOS 9 or newer."])
+            let backgroundError = IGZLocationError(error)
+            delegates.forEach { delegate in
+                delegate.didFail(backgroundError)
+            }
+            errorHandlers.forEach { errorHandler in
+                errorHandler(backgroundError)
+            }
+            return
+        }
+
+        guard authorized && locationAvailable else {
+            _ = authorize(authorization, { newStatus in
+                if self.authorized(newStatus) {
+                    if let handler = handler {
+                        self.locationTemporaryHandlers.append(handler)
+                    }
+                    self.locationManager.requestLocation()
+                }
+            })
+            return
+        }
+
+        if let handler = handler {
+            locationTemporaryHandlers.append(handler)
+        }
+        locationManager.requestLocation()
     }
 
 }

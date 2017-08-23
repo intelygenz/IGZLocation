@@ -17,13 +17,13 @@ class IGZLocationMock: IGZLocation {
         return mockLocation
     }
 
-    override func startLocationUpdates(_ handler: IGZLocationsHandler?) {
+    override func startLocationUpdates(_ handler: IGZLocationsHandler? = nil) {
         super.startLocationUpdates(handler)
         locationManager.delegate?.locationManager?(locationManager, didChangeAuthorization: .authorizedAlways)
         locationManager.delegate?.locationManager?(locationManager, didUpdateLocations: [mockLocation])
     }
 
-    override func requestLocation(_ handler: IGZLocationHandler?) {
+    override func requestLocation(_ handler: IGZLocationHandler? = nil) {
         super.requestLocation(handler)
         locationManager.delegate?.locationManager?(locationManager, didChangeAuthorization: .authorizedAlways)
         locationManager.delegate?.locationManager?(locationManager, didUpdateLocations: [mockLocation])

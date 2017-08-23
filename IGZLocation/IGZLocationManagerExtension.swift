@@ -31,9 +31,6 @@ extension IGZLocation: IGZLocationManager {
     open var authorization: CLAuthorizationStatus {
         return CLLocationManager.authorizationStatus()
     }
-    open var location: CLLocation? {
-        return locationManager.location
-    }
     open var heading: CLHeading? {
         return locationManager.heading
     }
@@ -89,7 +86,7 @@ extension IGZLocation: IGZLocationManager {
                 let error = NSError(domain: kCLErrorDomain, code: CLError.denied.rawValue, userInfo: [NSLocalizedDescriptionKey: "Background location updates is only available on iOS 9 or newer."])
                 let backgroundError = IGZLocationError(error)
                 delegates.forEach { delegate in
-                    delegate.didFail?(backgroundError)
+                    delegate.didFail(backgroundError)
                 }
                 errorHandlers.forEach { errorHandler in
                     errorHandler(backgroundError)
@@ -103,7 +100,7 @@ extension IGZLocation: IGZLocationManager {
                 let error = NSError(domain: kCLErrorDomain, code: CLError.denied.rawValue, userInfo: [NSLocalizedDescriptionKey: "The app's Info.plist must contain an UIBackgroundModes key with \"location\" value."])
                 let backgroundError = IGZLocationError(error)
                 delegates.forEach { delegate in
-                    delegate.didFail?(backgroundError)
+                    delegate.didFail(backgroundError)
                 }
                 errorHandlers.forEach { errorHandler in
                     errorHandler(backgroundError)
@@ -165,7 +162,7 @@ extension IGZLocation: IGZLocationManager {
             let error = NSError(domain: kCLErrorDomain, code: CLError.denied.rawValue, userInfo: [NSLocalizedDescriptionKey: "This app has attempted to access location data without user's authorization."])
             let authorizationError = IGZLocationError(error)
             delegates.forEach { delegate in
-                delegate.didFail?(authorizationError)
+                delegate.didFail(authorizationError)
             }
             errorHandlers.forEach { errorHandler in
                 errorHandler(authorizationError)
@@ -174,60 +171,10 @@ extension IGZLocation: IGZLocationManager {
         }
     }
 
-    open func startLocationUpdates(_ handler: IGZLocationsHandler? = nil) {
-        guard authorized && locationAvailable else {
-            _ = authorize(authorization, { newStatus in
-                if self.authorized(newStatus) {
-                    if let handler = handler {
-                        self.locationsTemporaryHandlers.append(handler)
-                    }
-                    self.locationManager.startUpdatingLocation()
-                }
-            })
-            return
-        }
-
-        if let handler = handler {
-            locationsTemporaryHandlers.append(handler)
-        }
-        locationManager.startUpdatingLocation()
-    }
-
     open func stopLocationUpdates() {
         locationsTemporaryHandlers.removeAll()
         locationTemporaryHandlers.removeAll()
         locationManager.stopUpdatingLocation()
-    }
-
-    open func requestLocation(_ handler: IGZLocationHandler? = nil) {
-        guard #available(iOS 9.0, *) else {
-            let error = NSError(domain: kCLErrorDomain, code: CLError.denied.rawValue, userInfo: [NSLocalizedDescriptionKey: "Request location is only available on iOS 9 or newer."])
-            let backgroundError = IGZLocationError(error)
-            delegates.forEach { delegate in
-                delegate.didFail?(backgroundError)
-            }
-            errorHandlers.forEach { errorHandler in
-                errorHandler(backgroundError)
-            }
-            return
-        }
-
-        guard authorized && locationAvailable else {
-            _ = authorize(authorization, { newStatus in
-                if self.authorized(newStatus) {
-                    if let handler = handler {
-                        self.locationTemporaryHandlers.append(handler)
-                    }
-                    self.locationManager.requestLocation()
-                }
-            })
-            return
-        }
-
-        if let handler = handler {
-            locationTemporaryHandlers.append(handler)
-        }
-        locationManager.requestLocation()
     }
 
     open func startHeadingUpdates(_ handler: IGZHeadingHandler? = nil) {
@@ -308,7 +255,7 @@ extension IGZLocation: IGZLocationManager {
             let error = NSError(domain: kCLErrorDomain, code: CLError.regionMonitoringDenied.rawValue, userInfo: [NSLocalizedDescriptionKey: "You don't have any monitored regions."])
             let regionError = IGZLocationError(error)
             delegates.forEach { delegate in
-                delegate.didFail?(regionError)
+                delegate.didFail(regionError)
             }
             errorHandlers.forEach { errorHandler in
                 errorHandler(regionError)
@@ -334,7 +281,7 @@ extension IGZLocation: IGZLocationManager {
             let error = NSError(domain: kCLErrorDomain, code: CLError.regionMonitoringDenied.rawValue, userInfo: [NSLocalizedDescriptionKey: "You don't have any monitored regions."])
             let regionError = IGZLocationError(error)
             delegates.forEach { delegate in
-                delegate.didFail?(regionError)
+                delegate.didFail(regionError)
             }
             errorHandlers.forEach { errorHandler in
                 errorHandler(regionError)

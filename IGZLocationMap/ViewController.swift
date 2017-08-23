@@ -44,7 +44,7 @@ class ViewController: UIViewController {
     @IBOutlet private weak var visitLabel: UILabel!
     @IBOutlet private weak var headingLabel: UILabel!
 
-    private let locationManager: IGZLocationManager = IGZLocation.shared
+    private var locationManager: IGZLocationManager = IGZLocation.shared
 
     override func viewDidLoad() {
         super.viewDidLoad()

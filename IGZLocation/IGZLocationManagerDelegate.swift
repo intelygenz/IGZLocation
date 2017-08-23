@@ -13,7 +13,7 @@ extension IGZLocation: CLLocationManagerDelegate {
     open func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
         notificationCenter.post(name: .IGZLocationDidUpdateLocations, object: locations)
         delegates.forEach { delegate in
-            delegate.didUpdateLocations?(locations)
+            delegate.didUpdateLocations(locations)
         }
         locationsTemporaryHandlers.forEach { locationsTemporaryHandler in
             locationsTemporaryHandler(locations)
@@ -24,7 +24,7 @@ extension IGZLocation: CLLocationManagerDelegate {
         if let lastLocation = locations.last {
             notificationCenter.post(name: .IGZLocationDidUpdateLocation, object: lastLocation)
             delegates.forEach { delegate in
-                delegate.didUpdateLocation?(lastLocation)
+                delegate.didUpdateLocation(lastLocation)
             }
             locationTemporaryHandlers.forEach { locationTemporaryHandler in
                 locationTemporaryHandler(lastLocation)
@@ -39,7 +39,7 @@ extension IGZLocation: CLLocationManagerDelegate {
     open func locationManager(_ manager: CLLocationManager, didUpdateHeading newHeading: CLHeading) {
         notificationCenter.post(name: .IGZLocationDidUpdateHeading, object: newHeading)
         delegates.forEach { delegate in
-            delegate.didUpdateHeading?(newHeading)
+            delegate.didUpdateHeading(newHeading)
         }
         headingTemporaryHandlers.forEach { headingTemporaryHandler in
             headingTemporaryHandler(newHeading)
@@ -56,7 +56,7 @@ extension IGZLocation: CLLocationManagerDelegate {
     open func locationManager(_ manager: CLLocationManager, didDetermineState state: CLRegionState, for region: CLRegion) {
         notificationCenter.post(name: .IGZLocationDidUpdateRegion, object: region, userInfo: [IGZLocationRegionStateUserInfoKey: state])
         delegates.forEach { delegate in
-            delegate.didUpdateRegion?(region, state)
+            delegate.didUpdateRegion(region, state)
         }
         regionTemporaryHandlers.forEach { regionTemporaryHandler in
             regionTemporaryHandler(region, state)
@@ -76,7 +76,7 @@ extension IGZLocation: CLLocationManagerDelegate {
     open func locationManager(_ manager: CLLocationManager, didEnterRegion region: CLRegion) {
         notificationCenter.post(name: .IGZLocationDidUpdateRegion, object: region, userInfo: [IGZLocationRegionStateUserInfoKey: CLRegionState.inside])
         delegates.forEach { delegate in
-            delegate.didUpdateRegion?(region, .inside)
+            delegate.didUpdateRegion(region, .inside)
         }
         regionTemporaryHandlers.forEach { regionTemporaryHandler in
             regionTemporaryHandler(region, .inside)
@@ -89,7 +89,7 @@ extension IGZLocation: CLLocationManagerDelegate {
     open func locationManager(_ manager: CLLocationManager, didExitRegion region: CLRegion) {
         notificationCenter.post(name: .IGZLocationDidUpdateRegion, object: region, userInfo: [IGZLocationRegionStateUserInfoKey: CLRegionState.outside])
         delegates.forEach { delegate in
-            delegate.didUpdateRegion?(region, .outside)
+            delegate.didUpdateRegion(region, .outside)
         }
         regionTemporaryHandlers.forEach { regionTemporaryHandler in
             regionTemporaryHandler(region, .outside)
@@ -110,7 +110,7 @@ extension IGZLocation: CLLocationManagerDelegate {
         let locationError = IGZLocationError(error)
         notificationCenter.post(name: .IGZLocationDidFail, object: locationError)
         delegates.forEach { delegate in
-            delegate.didFail?(locationError)
+            delegate.didFail(locationError)
         }
         errorTemporaryHandlers.forEach { errorTemporaryHandler in
             errorTemporaryHandler(locationError)
@@ -125,7 +125,7 @@ extension IGZLocation: CLLocationManagerDelegate {
         let locationError = IGZLocationError(error, region: region)
         notificationCenter.post(name: .IGZLocationDidFail, object: locationError)
         delegates.forEach { delegate in
-            delegate.didFail?(locationError)
+            delegate.didFail(locationError)
         }
         errorTemporaryHandlers.forEach { errorTemporaryHandler in
             errorTemporaryHandler(locationError)
@@ -139,7 +139,7 @@ extension IGZLocation: CLLocationManagerDelegate {
     open func locationManager(_ manager: CLLocationManager, didChangeAuthorization status: CLAuthorizationStatus) {
         notificationCenter.post(name: .IGZLocationDidChangeAuthorization, object: status)
         delegates.forEach { delegate in
-            delegate.didChangeAuthorization?(status)
+            delegate.didChangeAuthorization(status)
         }
         authorizationTemporaryHandlers.forEach { authorizationTemporaryHandler in
             authorizationTemporaryHandler(status)
@@ -155,7 +155,7 @@ extension IGZLocation: CLLocationManagerDelegate {
     open func locationManager(_ manager: CLLocationManager, didStartMonitoringFor region: CLRegion) {
         notificationCenter.post(name: .IGZLocationDidUpdateRegion, object: region, userInfo: [IGZLocationRegionStateUserInfoKey: CLRegionState.unknown])
         delegates.forEach { delegate in
-            delegate.didUpdateRegion?(region, .unknown)
+            delegate.didUpdateRegion(region, .unknown)
         }
         regionTemporaryHandlers.forEach { regionTemporaryHandler in
             regionTemporaryHandler(region, .unknown)
@@ -178,7 +178,7 @@ extension IGZLocation: CLLocationManagerDelegate {
             let locationError = IGZLocationError(error)
             notificationCenter.post(name: .IGZLocationDidFail, object: locationError)
             delegates.forEach { delegate in
-                delegate.didFail?(locationError)
+                delegate.didFail(locationError)
             }
             errorTemporaryHandlers.forEach { errorTemporaryHandler in
                 errorTemporaryHandler(locationError)
@@ -195,7 +195,7 @@ extension IGZLocation: CLLocationManagerDelegate {
         let visiting = visit.arrivalDate < date && visit.departureDate > date
         notificationCenter.post(name: .IGZLocationDidVisit, object: visit, userInfo: [IGZLocationVisitingUserInfoKey: visiting])
         delegates.forEach { delegate in
-            delegate.didVisit?(visit, visiting)
+            delegate.didVisit(visit, visiting)
         }
         visitTemporaryHandlers.forEach { visitTemporaryHandler in
             visitTemporaryHandler(visit, visiting)

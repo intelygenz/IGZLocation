@@ -8,14 +8,26 @@
 
 import CoreLocation
 
-@objc public protocol IGZLocationDelegate {
+public protocol IGZLocationDelegate {
 
-    @objc optional func didUpdateLocation(_ location: CLLocation)
-    @objc optional func didUpdateLocations(_ locations: [CLLocation])
-    @objc optional func didUpdateHeading(_ heading: CLHeading)
-    @objc optional func didUpdateRegion(_ region: CLRegion, _ state: CLRegionState)
-    @objc optional func didFail(_ error: IGZLocationError)
-    @objc optional func didChangeAuthorization(_ status: CLAuthorizationStatus)
-    @objc optional func didVisit(_ visit: CLVisit, _ visiting: Bool)
+    func didUpdateLocation(_ location: CLLocation)
+    func didUpdateLocations(_ locations: [CLLocation])
+    func didUpdateHeading(_ heading: CLHeading)
+    func didUpdateRegion(_ region: CLRegion, _ state: CLRegionState)
+    func didFail(_ error: IGZLocationError)
+    func didChangeAuthorization(_ status: CLAuthorizationStatus)
+    func didVisit(_ visit: CLVisit, _ visiting: Bool)
+
+}
+
+public extension IGZLocationDelegate {
+
+    func didUpdateLocation(_ location: CLLocation) {}
+    func didUpdateLocations(_ locations: [CLLocation]) {}
+    func didUpdateHeading(_ heading: CLHeading) {}
+    func didUpdateRegion(_ region: CLRegion, _ state: CLRegionState) {}
+    func didFail(_ error: IGZLocationError) {}
+    func didChangeAuthorization(_ status: CLAuthorizationStatus) {}
+    func didVisit(_ visit: CLVisit, _ visiting: Bool) {}
 
 }

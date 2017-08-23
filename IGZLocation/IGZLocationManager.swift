@@ -13,7 +13,7 @@ import CoreLocation
  
  The IGZLocationManager protocol implementation is your entry point to the location service.
  */
-public protocol IGZLocationManager: NSObjectProtocol {
+public protocol IGZLocationManager {
 
     /// IGZLocationManager protocol implementation shared instance
     static var shared: IGZLocationManager { get }

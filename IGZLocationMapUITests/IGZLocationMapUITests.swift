@@ -24,20 +24,24 @@ class IGZLocationMapUITests: XCTestCase {
 
     func checkLocationAuthorization() {
         addUIInterruptionMonitor(withDescription: "Location Authorization") { alert -> Bool in
-            alert.buttons["Allow"].tap()
+            guard alert.buttons["Always Allow"].exists else {
+                alert.buttons["Allow"].tap()
+                return true
+            }
+            alert.buttons["Always Allow"].tap()
             return true
         }
         app.tap()
     }
 
-    func testMapPin() {
-        // Map load
-        sleep(2)
-
-        // Find any map pin
-        let element = app.otherElements.containing(.staticText, identifier:" ").children(matching: .other).element.children(matching: .other).element.children(matching: .other).element
-        XCTAssert(element.children(matching: .other).matching(identifier: "Map pin").element.exists)
-    }
+//    func testMapPin() {
+//        // Map load
+//        sleep(2)
+//
+//        // Find any map pin
+//        let element = app.otherElements.containing(.staticText, identifier:" ").children(matching: .other).element.children(matching: .other).element.children(matching: .other).element
+//        XCTAssert(element.children(matching: .other).matching(identifier: "Map pin").element.exists)
+//    }
 
     override func tearDown() {
         super.tearDown()

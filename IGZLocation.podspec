@@ -1,11 +1,11 @@
 Pod::Spec.new do |s|
 
   s.name         = "IGZLocation"
-  s.version      = "1.0.5"
-  s.summary      = "CLLocationManager Swift 3 wrapper with multiple closure handlers and delegates allowed, notifications, sequential geofencing, self-authorization and, of course, everything is testable. #InCodeWeTrust"
+  s.version      = "1.1.0"
+  s.summary      = "CLLocationManager Swift 4 wrapper with multiple closure handlers and delegates allowed, notifications, sequential geofencing, self-authorization and, of course, everything is testable. #InCodeWeTrust"
   s.description  = <<-DESC
   # IGZLocation
-  CLLocationManager Swift 3 wrapper with multiple closure handlers and delegates allowed, notifications, sequential geofencing, self-authorization and, of course, everything is testable. #InCodeWeTrust
+  CLLocationManager Swift 4 wrapper with multiple closure handlers and delegates allowed, notifications, sequential geofencing, self-authorization and, of course, everything is testable. #InCodeWeTrust
                    DESC
 
   s.homepage     = "https://github.com/intelygenz/IGZLocation"
